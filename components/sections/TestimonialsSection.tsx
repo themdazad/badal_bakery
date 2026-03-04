@@ -41,7 +41,7 @@ export default function TestimonialsSection() {
   const avgRating = 4.9;
 
   return (
-    <section id="testimonials" className="py-24 bg-gradient-to-b from-amber-50 to-orange-50 overflow-hidden">
+    <section id="testimonials" className="py-24 bg-linear-to-b from-amber-50 to-orange-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
         {/* Section header */}
         <motion.div
@@ -55,7 +55,7 @@ export default function TestimonialsSection() {
           </span>
           <h2 className="text-4xl lg:text-5xl font-extrabold text-amber-950 mb-4 font-serif">
             What Our Customers{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500 italic">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-500 to-orange-500 italic">
               Say
             </span>
           </h2>

@@ -92,7 +92,7 @@ export default function CartDrawer() {
             className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-md bg-white shadow-2xl flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-amber-100 bg-gradient-to-r from-amber-400 to-orange-500">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-amber-100 bg-linear-to-r from-amber-400 to-orange-500">
               <div className="flex items-center gap-2.5">
                 <ShoppingCart className="w-5 h-5 text-white" />
                 <h2 className="text-lg font-bold text-white font-serif">
@@ -144,7 +144,7 @@ export default function CartDrawer() {
                 </div>
                 <button
                   onClick={closeDrawer}
-                  className="px-6 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-white text-sm font-semibold"
+                  className="px-6 py-2.5 rounded-full bg-linear-to-r from-amber-400 to-orange-500 text-white text-sm font-semibold"
                 >
                   Browse Products
                 </button>

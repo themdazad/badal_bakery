@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Product } from "@/lib/products";
-import { saveProductEdit, generateSlug } from "@/lib/product-store";
-import { Plus, Trash2, Save, Loader2, ArrowLeft } from "lucide-react";
+import { generateSlug } from "@/lib/product-store";
+import { Plus, Trash2, Save, Loader2, ArrowLeft, CheckCircle } from "lucide-react";
 import Link from "next/link";
 
 interface Props {
@@ -36,16 +36,18 @@ export default function ProductForm({ initial, mode }: Props) {
   const [form, setForm] = useState<Partial<Product>>(initial || emptyProduct());
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const set = (key: keyof Product, value: unknown) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name?.trim()) return;
 
     setSaving(true);
+    setError(null);
     const slug = form.slug || generateSlug(form.name!);
     const product: Product = {
       slug,
@@ -66,12 +68,29 @@ export default function ProductForm({ initial, mode }: Props) {
       options: form.options || [],
     };
 
-    setTimeout(() => {
-      saveProductEdit(product);
-      setSaving(false);
+    try {
+      const isNew = mode === "new";
+      const res = await fetch(
+        isNew ? "/api/products" : `/api/products/${slug}`,
+        {
+          method: isNew ? "POST" : "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product),
+        }
+      );
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to save product");
+      }
+
       setSaved(true);
-      setTimeout(() => router.push("/admin/products"), 1000);
-    }, 600);
+      setTimeout(() => router.push("/admin/products"), 1200);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -306,32 +325,42 @@ export default function ProductForm({ initial, mode }: Props) {
       </section>
 
       {/* Submit */}
-      <div className="flex items-center gap-3 pb-8">
-        <button
-          type="submit"
-          disabled={saving || !form.name?.trim()}
-          className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-white font-bold text-sm shadow-md shadow-amber-200 hover:from-amber-500 hover:to-orange-600 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
-        >
-          {saving ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Saving…
-            </>
-          ) : saved ? (
-            <>✓ Saved! Redirecting…</>
-          ) : (
-            <>
-              <Save className="w-4 h-4" />
-              {mode === "new" ? "Create Product" : "Save Changes"}
-            </>
-          )}
-        </button>
-        <Link
-          href="/admin/products"
-          className="px-5 py-3 rounded-xl border-2 border-amber-200 text-sm font-bold text-amber-700 hover:bg-amber-50 transition-all"
-        >
-          Cancel
-        </Link>
+      <div className="pb-8 space-y-3">
+        {error && (
+          <div className="px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-700">
+            {error}
+          </div>
+        )}
+        <div className="flex items-center gap-3">
+          <button
+            type="submit"
+            disabled={saving || !form.name?.trim()}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-linear-to-r from-amber-400 to-orange-500 text-white font-bold text-sm shadow-md shadow-amber-200 hover:from-amber-500 hover:to-orange-600 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
+          >
+            {saving ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Saving…
+              </>
+            ) : saved ? (
+              <>
+                <CheckCircle className="w-4 h-4" />
+                Saved! Redirecting…
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                {mode === "new" ? "Create Product" : "Save Changes"}
+              </>
+            )}
+          </button>
+          <Link
+            href="/admin/products"
+            className="px-5 py-3 rounded-xl border-2 border-amber-200 text-sm font-bold text-amber-700 hover:bg-amber-50 transition-all"
+          >
+            Cancel
+          </Link>
+        </div>
       </div>
     </form>
   );

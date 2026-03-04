@@ -8,7 +8,7 @@ import AIAssistant from "@/components/features/AIAssistant";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <main className="min-h-screen bg-white overflow-x-hidden" id="home">
       <Navbar />
       <HeroSection />
       <ProductsSection />

@@ -1,44 +1,40 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   LayoutDashboard,
   Package,
+  Settings,
   LogOut,
   Menu,
   X,
   ChevronRight,
 } from "lucide-react";
 
-const SESSION_KEY = "badalbakery_admin_auth";
-
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Products", icon: Package },
+  { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const pathname = usePathname();
+  const { data: session, status } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    // Allow login page without auth check
-    if (pathname === "/admin") return;
-    if (sessionStorage.getItem(SESSION_KEY) !== "true") {
-      router.replace("/admin");
-    }
-  }, [pathname, router]);
+  // Login page renders without sidebar chrome
+  if (pathname === "/admin") return <>{children}</>;
 
-  const handleLogout = () => {
-    sessionStorage.removeItem(SESSION_KEY);
-    router.push("/admin");
-  };
-
-  // Login page renders without sidebar
-  if (pathname === "/admin") {
-    return <>{children}</>;
+  // Show nothing while loading session (middleware handles redirect)
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-amber-50">
+        <div className="w-8 h-8 border-4 border-amber-300 border-t-amber-600 rounded-full animate-spin" />
+      </div>
+    );
   }
 
   return (
@@ -51,7 +47,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       >
         {/* Logo */}
         <div className="flex items-center gap-3 px-6 py-5 border-b border-amber-100">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-xl shadow-md shadow-amber-200">
+          <div className="w-10 h-10 rounded-xl bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center text-xl shadow-md shadow-amber-200">
             🥖
           </div>
           <div>
@@ -89,18 +85,44 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        {/* Logout */}
-        <div className="px-3 pb-5">
+        {/* User info + Logout */}
+        <div className="px-3 pb-5 border-t border-amber-100 pt-4 space-y-1">
+          {/* User avatar row */}
+          {session?.user && (
+            <div className="flex items-center gap-3 px-4 py-3">
+              {session.user.image ? (
+                <Image
+                  src={session.user.image}
+                  alt={session.user.name ?? "Admin"}
+                  width={32}
+                  height={32}
+                  className="rounded-full ring-2 ring-amber-200"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-amber-200 flex items-center justify-center text-amber-700 font-bold text-sm">
+                  {session.user.name?.[0] ?? "A"}
+                </div>
+              )}
+              <div className="min-w-0">
+                <p className="text-xs font-bold text-amber-900 truncate">
+                  {session.user.name}
+                </p>
+                <p className="text-[10px] text-amber-500 truncate">
+                  {session.user.email}
+                </p>
+              </div>
+            </div>
+          )}
           <button
-            onClick={handleLogout}
+            onClick={() => signOut({ callbackUrl: "/admin" })}
             className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-sm font-semibold text-red-500 hover:bg-red-50 transition-all"
           >
             <LogOut className="w-4 h-4" />
-            Logout
+            Sign Out
           </button>
           <Link
             href="/"
-            className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-sm font-semibold text-amber-500 hover:bg-amber-50 transition-all mt-1"
+            className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-sm font-semibold text-amber-500 hover:bg-amber-50 transition-all"
           >
             ← Back to Website
           </Link>

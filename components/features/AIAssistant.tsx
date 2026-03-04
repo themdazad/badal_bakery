@@ -75,7 +75,7 @@ export default function AIAssistant() {
       {/* Floating button */}
       <motion.button
         onClick={() => setOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-xl shadow-amber-300/50 flex items-center justify-center ai-pulse hover:scale-110 transition-transform ${open ? "hidden" : "flex"}`}
+        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-linear-to-br from-amber-400 to-orange-500 text-white shadow-xl shadow-amber-300/50 flex items-center justify-center ai-pulse hover:scale-110 transition-transform ${open ? "hidden" : "flex"}`}
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 2, type: "spring" }}
@@ -96,7 +96,7 @@ export default function AIAssistant() {
             style={{ maxHeight: "70vh" }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-amber-400 to-orange-500 px-5 py-4 flex items-center justify-between">
+            <div className="bg-linear-to-r from-amber-400 to-orange-500 px-5 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                   <Sparkles className="w-4 h-4 text-white" />
@@ -124,7 +124,7 @@ export default function AIAssistant() {
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm ${
                       msg.role === "user"
-                        ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-br-sm"
+                        ? "bg-linear-to-r from-amber-400 to-orange-500 text-white rounded-br-sm"
                         : "bg-amber-50 text-amber-900 border border-amber-100 rounded-bl-sm"
                     }`}
                   >
@@ -168,7 +168,7 @@ export default function AIAssistant() {
               <button
                 onClick={() => handleSend()}
                 disabled={!input.trim() || loading}
-                className="w-9 h-9 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 flex items-center justify-center text-white disabled:opacity-50 disabled:cursor-not-allowed hover:from-amber-500 hover:to-orange-600 transition-all shadow-md"
+                className="w-9 h-9 rounded-full bg-linear-to-r from-amber-400 to-orange-500 flex items-center justify-center text-white disabled:opacity-50 disabled:cursor-not-allowed hover:from-amber-500 hover:to-orange-600 transition-all shadow-md"
               >
                 <Send className="w-4 h-4" />
               </button>

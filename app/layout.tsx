@@ -4,6 +4,7 @@ import "./globals.css";
 import LocomotiveScrollInit from "@/components/layout/LocomotiveScrollInit";
 import { CartProvider } from "@/lib/cart-context";
 import CartDrawer from "@/components/layout/CartDrawer";
+import Providers from "./Providers";
 
 // Serif: Premium display / heading font
 const playfair = Playfair_Display({
@@ -48,11 +49,13 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${dmSans.variable} ${lora.variable} antialiased`}
       >
-        <CartProvider>
-          <LocomotiveScrollInit />
-          {children}
-          <CartDrawer />
-        </CartProvider>
+        <Providers>
+          <CartProvider>
+            <LocomotiveScrollInit />
+            {children}
+            <CartDrawer />
+          </CartProvider>
+        </Providers>
       </body>
     </html>
   );

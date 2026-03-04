@@ -46,11 +46,11 @@ export default async function ProductPage({
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-gradient-to-b from-amber-50 to-white pt-20">
+      <main className="min-h-screen bg-linear-to-b from-amber-50 to-white pt-20">
         {/* Back link */}
         <div className="max-w-7xl mx-auto px-4 pt-6 pb-2">
           <Link
-            href="/#products"
+            href="/products"
             className="inline-flex items-center gap-2 text-sm font-medium text-amber-700 hover:text-amber-500 transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -64,7 +64,7 @@ export default async function ProductPage({
             {/* Image Gallery */}
             <div className="space-y-3">
               {/* Main image */}
-              <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-xl shadow-amber-100">
+              <div className="relative w-full aspect-4/3 rounded-3xl overflow-hidden shadow-xl shadow-amber-100">
                 <Image
                   src={product.images[0]}
                   alt={product.name}

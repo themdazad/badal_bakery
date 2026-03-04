@@ -1,29 +1,29 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { Croissant, MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
 
 const quickLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Products", href: "#products" },
-  { name: "About Us", href: "#about" },
-  { name: "Testimonials", href: "#testimonials" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  { name: "Products", href: "/products" },
+  { name: "About Us", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const products = [
-  "Artisan Bread",
-  "Custom Cakes",
-  "Butter Cookies",
-  "Croissants",
-  "Muffins",
-  "Pav & Buns",
+  { name: "Artisan Bread", slug: "artisan-bread" },
+  { name: "Custom Cakes", slug: "custom-cakes" },
+  { name: "Butter Cookies", slug: "butter-cookies" },
+  { name: "Croissants", slug: "croissants" },
+  { name: "Muffins", slug: "muffins" },
+  { name: "Pav & Buns", slug: "pav-buns" },
 ];
 
 export default function Footer() {
   return (
     <footer id="contact" className="bg-amber-950 text-amber-100">
       {/* CTA Banner */}
-      <div className="bg-gradient-to-r from-amber-500 to-orange-500 py-12 px-4">
+      <div className="bg-linear-to-r from-amber-500 to-orange-500 py-12 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <h3 className="text-3xl font-extrabold text-white mb-3 font-serif italic">
             Ready to Order? Let&apos;s Bake Something Special 🎂
@@ -31,13 +31,21 @@ export default function Footer() {
           <p className="text-white/80 text-lg mb-6">
             Call us, visit our factory, or use our AI assistant to enquire about products.
           </p>
-          <a
-            href="tel:+919876543210"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-amber-700 font-bold text-sm hover:bg-amber-50 transition-all shadow-xl"
-          >
-            <Phone className="w-4 h-4" />
-            Call: +91 98765 43210
-          </a>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href="tel:+919876543210"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-amber-700 font-bold text-sm hover:bg-amber-50 transition-all shadow-xl"
+            >
+              <Phone className="w-4 h-4" />
+              Call: +91 98765 43210
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-amber-900/40 text-white border border-white/30 font-bold text-sm hover:bg-amber-900/60 transition-all"
+            >
+              Contact Us →
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -47,7 +55,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center">
                 <Croissant className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-white">
@@ -83,12 +91,12 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {quickLinks.map((l) => (
                 <li key={l.name}>
-                  <a
+                  <Link
                     href={l.href}
                     className="text-amber-300/70 hover:text-amber-400 text-sm transition-colors"
                   >
                     {l.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -101,13 +109,13 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5">
               {products.map((p) => (
-                <li key={p}>
-                  <a
-                    href="#products"
+                <li key={p.name}>
+                  <Link
+                    href={`/products/${p.slug}`}
                     className="text-amber-300/70 hover:text-amber-400 text-sm transition-colors"
                   >
-                    {p}
-                  </a>
+                    {p.name}
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -84,7 +84,7 @@ export function InfiniteMovingCards({
         {items.map((item, idx) => (
           <li
             key={idx}
-            className="relative w-[350px] max-w-full shrink-0 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white px-8 py-6 md:w-[450px]"
+            className="relative w-[350px] max-w-full shrink-0 rounded-2xl border border-amber-200 bg-linear-to-br from-amber-50 to-white px-8 py-6 md:w-[450px]"
           >
             <blockquote>
               <div
@@ -95,7 +95,7 @@ export function InfiniteMovingCards({
                 &ldquo;{item.quote}&rdquo;
               </span>
               <div className="relative z-20 mt-6 flex flex-row items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white font-bold text-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-amber-400 to-orange-500 text-white font-bold text-sm">
                   {item.name.charAt(0)}
                 </div>
                 <div>

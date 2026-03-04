@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
-import { getMergedProductBySlug } from "@/lib/product-store";
 import type { Product } from "@/lib/products";
 import ProductForm from "../../ProductForm";
 import { Loader2 } from "lucide-react";
@@ -12,8 +11,9 @@ export default function EditProductPage() {
   const [product, setProduct] = useState<Product | undefined | null>(undefined);
 
   useEffect(() => {
-    const p = getMergedProductBySlug(slug);
-    setProduct(p ?? null);
+    fetch(`/api/products/${slug}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => setProduct(data ?? null));
   }, [slug]);
 
   if (product === undefined) {

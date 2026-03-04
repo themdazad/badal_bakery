@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { ArrowRight, Star, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -9,7 +10,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-amber-50 via-orange-50 to-white pt-16"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-b from-amber-50 via-orange-50 to-white pt-16"
     >
       {/* Sparkles background */}
       <div className="absolute inset-0 w-full h-full">
@@ -42,7 +43,7 @@ export default function HeroSection() {
 
           <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight text-amber-950 mb-6 font-serif">
             Freshly Baked
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 italic">
+            <span className="block text-transparent bg-clip-text bg-linear-to-r from-amber-500 to-orange-600 italic">
               With Love & Care
             </span>
           </h1>
@@ -67,19 +68,19 @@ export default function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4">
-            <a
-              href="#products"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-white font-semibold text-sm hover:from-amber-500 hover:to-orange-600 transition-all duration-300 shadow-lg shadow-amber-200 hover:shadow-amber-300 hover:-translate-y-0.5"
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-linear-to-r from-amber-400 to-orange-500 text-white font-semibold text-sm hover:from-amber-500 hover:to-orange-600 transition-all duration-300 shadow-lg shadow-amber-200 hover:shadow-amber-300 hover:-translate-y-0.5"
             >
               Explore Products
               <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href="#about"
+            </Link>
+            <Link
+              href="/about"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-amber-300 text-amber-800 font-semibold text-sm hover:bg-amber-50 transition-all duration-300"
             >
               Our Story
-            </a>
+            </Link>
           </div>
 
           {/* Stats */}

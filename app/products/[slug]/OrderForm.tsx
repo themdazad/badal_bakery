@@ -145,7 +145,7 @@ export default function OrderForm({ product }: { product: Product }) {
   return (
     <div className="rounded-3xl border-2 border-amber-100 bg-white shadow-xl shadow-amber-50 overflow-hidden">
       {/* Form header */}
-      <div className="bg-gradient-to-r from-amber-400 to-orange-500 px-6 py-5">
+      <div className="bg-linear-to-r from-amber-400 to-orange-500 px-6 py-5">
         <h2 className="text-xl font-extrabold text-white font-serif">Customise Your Order</h2>
         <p className="text-white/80 text-sm mt-0.5">
           Select your preferences, add to cart, then send the full order via WhatsApp
@@ -220,7 +220,7 @@ export default function OrderForm({ product }: { product: Product }) {
           <button
             type="button"
             onClick={handleAddToCart}
-            className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-white font-bold text-base transition-all duration-300 shadow-lg shadow-amber-200 hover:-translate-y-0.5 active:translate-y-0"
+            className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl bg-linear-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-white font-bold text-base transition-all duration-300 shadow-lg shadow-amber-200 hover:-translate-y-0.5 active:translate-y-0"
           >
             <ShoppingCart className="w-5 h-5" />
             Add to Cart

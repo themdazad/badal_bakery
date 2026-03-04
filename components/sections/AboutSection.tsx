@@ -46,7 +46,7 @@ export default function AboutSection() {
           </span>
           <h2 className="text-4xl lg:text-5xl font-extrabold text-amber-950 mb-4 font-serif">
             Made in{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500 italic">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-500 to-orange-500 italic">
               Bihar, With Pride
             </span>
           </h2>
@@ -155,7 +155,7 @@ export default function AboutSection() {
           </h3>
           <div className="relative ml-4">
             {/* Vertical line */}
-            <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-400 to-orange-400" />
+            <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-linear-to-b from-amber-400 to-orange-400" />
 
             {milestones.map((m, idx) => (
               <motion.div
@@ -167,7 +167,7 @@ export default function AboutSection() {
                 className="relative pl-10 pb-8 last:pb-0"
               >
                 {/* Dot */}
-                <div className="absolute left-0 top-1 w-5 h-5 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 border-2 border-white shadow-md" />
+                <div className="absolute left-0 top-1 w-5 h-5 rounded-full bg-linear-to-br from-amber-400 to-orange-500 border-2 border-white shadow-md" />
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                   <span className="text-sm font-extrabold text-amber-500 shrink-0">
                     {m.year}
